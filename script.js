@@ -1,85 +1,51 @@
-var counter;
+var Counter = React.createClass({
 
-var CounterDecrease = React.createClass({
     getInitialState: function() {
         return {
-            counter: 1
-        };
-    },
 
-    componentWillMount: function() {
-        console.log("componentWillMount");
-    },
-
-    render: function() {
-        var counter = setTimeout(function() {
-            this.setState(function(prevState) {
-                return {
-                    counter: prevState.counter - 1
-                };
-            });
-        }.bind(this), 2000);
-
-
-        return React.createElement("div", {},
-            React.createElement("span", {}, "Countdown:  " + this.state.counter)
-        );
-    },
-
-    componentDidMount: function() {
-        console.log("componentDidMount");
-    },
-
-    componentWillUpdate: function() {
-        console.log("componentWillUpdate");
-    },
-
-    componentWillUnmount: function() {
-        if (counter = 0) {
-            clearTimeout(counter);
-            console.log("componentWillUnmount");
-        } else {
-            return false;
-        }
-    }
-});
-
-var CounterIncrease = React.createClass({
-    getInitialState: function() {
-        return {
             counter: 0
         };
+
     },
 
-    componentWillMount: function() {
-        console.log("componentWillMount");
+    increment: function() {
+        this.setState({
+            counter: this.state.counter + 1
+        });
     },
+
+    decrement: function() {
+        this.setState({
+            counter: this.state.counter - 1
+        });
+    },
+
+
 
     render: function() {
-        var counter = setTimeout(function() {
-            this.setState(function(prevState) {
-                return {
-                    counter: prevState.counter + 1
-                };
-            });
-        }.bind(this), 500);
+        return (
+            React.createElement('div', { className: 'counter' },
+                React.createElement('h2', {}, ""),
+                React.createElement('span', {}, 'Licznik: ' + this.state.counter),
+                React.createElement('div', {},
+                    React.createElement('button', {
+                        className: 'incr_button',
+                        onClick: this.increment
+                    }, 'dodaj '),
 
-        return React.createElement("div", {},
-            React.createElement("span", {}, "Counter: " + this.state.counter)
+                    React.createElement('button', {
+                        onClick: this.decrement
+                    }, 'odejmij ')
+                )
+            )
         );
-    },
-
-    componentDidMount: function() {
-        console.log("componentDidMount");
-    },
-
-    componentWillUpdate: function() {
-        console.log("componentWillUpdate");
     }
-
 });
 
-var decrease = React.createElement(CounterDecrease);
-var increase = React.createElement(CounterIncrease);
-ReactDOM.render(decrease, document.getElementById("down"));
-ReactDOM.render(increase, document.getElementById("up"));
+var element = React.createElement('div', { className: 'counters' },
+    React.createElement('h1', {}, 'Licznik'),
+    React.createElement(Counter)
+
+);
+
+ReactDOM.render(element, document.getElementById('script'));
